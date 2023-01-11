@@ -1,5 +1,6 @@
 package com.mifdhamilan.springbootdemo.service;
 
+import com.mifdhamilan.springbootdemo.exception.EmployeeNotFoundException;
 import com.mifdhamilan.springbootdemo.model.Employee;
 import org.springframework.stereotype.Service;
 
@@ -23,5 +24,27 @@ public class EmployeeServiceImplementation implements EmployeeService{
     @Override
     public List<Employee> getAllEmployees() {
         return employees;
+    }
+
+    @Override
+    public Employee getEmployeeById(String id) {
+        return employees
+                .stream()
+                .filter(employee -> employee.getEmployeeId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new EmployeeNotFoundException("Employee not found with id: " + id));
+
+    }
+
+    @Override
+    public String deleteEmployeeById(String id) {
+        Employee employee
+                = employees
+                .stream()
+                .filter(e -> e.getEmployeeId().equalsIgnoreCase(id))
+                .findFirst()
+                .get();
+        employees.remove(employee);
+        return "Employee deleted with the id: "+ id;
     }
 }
