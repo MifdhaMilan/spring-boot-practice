@@ -1,18 +1,19 @@
-package com.mifdhamilan.springbootdemo.model;
+package com.mifdhamilan.springbootdemo.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-//@JsonIgnoreProperties("department")
-public class Employee {
-
+@Entity
+@Table(name = "table_employee")
+public class EmployeeEntity {
+    @Id
     private String employeeId;
     private String firstName;
     private String lastName;
     private String emailId;
-
-//    @JsonIgnore
     private String department;
+
     public String getEmployeeId() {
         return employeeId;
     }
@@ -52,6 +53,4 @@ public class Employee {
     public void setDepartment(String department) {
         this.department = department;
     }
-
-
 }
